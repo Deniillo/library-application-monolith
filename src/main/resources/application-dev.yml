@@ -1,0 +1,13 @@
+server:
+    port: 8081
+
+my-service:
+    url: http://localhost:8081
+
+thymeleaf:
+    cache: false # отключаем чтобы изменения в шаблонах применялись без перезапуска приложения
+
+spring:
+    devtools:
+        restart:
+            enabled: true

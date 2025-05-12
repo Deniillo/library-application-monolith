@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторы и комментарии</title>
+    <script th:src="@{https://cdn.tailwindcss.com}"></script>
+    <script defer th:src="@{/js/authors.js}"></script>
+    <script defer th:src="@{/js/pageLoadTime.js}"></script>
+    <script defer th:src="@{/js/navigation.js}"></script>
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-green-600 text-black p-5 text-center">
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo.png}" width="200" class="mx-auto mb-3">
+        </a>
+        <form class="mb-4">
+            <input type="text" placeholder="Напиши сюда что ты ищешь!" class="border rounded-lg px-4 py-2 w-full sm:w-80 shadow-md">
+            <button type="submit" class="bg-white rounded-lg px-4 py-2 ml-3 shadow-md transition duration-300 hover:bg-gray-200">Тык</button>
+        </form>
+        <nav>
+            <ul id="menu" class="flex flex-wrap space-x-2 justify-center">
+                <li><a th:href="@{/profile}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Профиль</a></li>
+                <li><a th:href="@{/whatToRead}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Что почитать?</a></li>
+                <li><a th:href="@{/authors}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Авторы</a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjFBl4JoRrP2MZbj9xX0wz0JH4YJ3CayQxJilq1GJf3hLvAQ/viewform?usp=dialog" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Стать автором</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="max-w-screen-lg mx-auto p-5 mt-8">
+        <h1 class="text-2xl font-bold text-center mb-4">Подборка популярных Авторов книг и отзывов о них</h1>
+
+        <div class="author-list grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+
+        <div class="preloader mx-auto my-12 w-24 h-4 bg-gray-200 rounded-full overflow-hidden">
+            <div class="progress-bar bg-blue-500 h-full animate-pulse"></div>
+        </div>
+    </main>
+
+    <aside class="bg-blue-100 p-4 rounded-lg shadow-md w-full text-center mt-5">
+        <p>По словам <cite>Карлоса Руис Сафона</cite>: <q>Книги — это корабли, которые нас переносят из одного города в другой, и из одной жизни в другую.</q></p>
+    </aside>
+
+    <footer class="bg-green-600 text-black text-center p-5">
+        <p>Наши контакты:</p>
+        <p>Тг: <a href="https://t.me/Deniill" class="underline text-black">Аленин Даниил</a></p>
+        <p id="loadTime"></p>
+    </footer>
+
+</body>
+</html>

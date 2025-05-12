@@ -1,0 +1,31 @@
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+    width: 30px; /* Уменьшаем размер стрелок */
+    height: 30px;
+    color: #000; /* Цвет стрелок */
+    top: 50%; /* Центрируем по вертикали */
+    transform: translateY(-50%); /* Центрируем по вертикали */
+}
+
+/* Позиционирование стрелок ближе к фотографии */
+.swiper-button-prev {
+    left: 10px; /* Отступ от левого края */
+}
+
+.swiper-button-next {
+    right: 10px; /* Отступ от правого края */
+}
+
+/* Центрирование пагинации */
+.swiper-pagination-news {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Отступ сверху для пагинации */
+}

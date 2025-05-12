@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "3.4.3"
+    id 'io.spring.dependency-management' version "1.1.4"
+}
+
+group = 'itmo.deniill'
+version = 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+// это для автоматический перезагрузки, но походу не работает
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web:3.4.3")
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation ("org.springframework.boot:spring-boot-starter-thymeleaf:3.4.3") // шаблонизатор
+
+    // для автоматической перезагрузки приложения при изменении статических файлов, не работает чет((
+    developmentOnly("org.springframework.boot:spring-boot-devtools:3.4.3")
+
+    //tests
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // GraphQL
+    implementation("org.springframework.boot:spring-boot-starter-graphql")
+
+    // Apollo Federation
+    // implementation("com.apollographql.federation:federation-graphql-java-support:4.0.0")
+
+    // Web
+    // implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+    //Database
+    implementation 'org.postgresql:postgresql:42.7.2'
+
+    //Utils
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
+    // Security
+    //implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+}
+test {
+    useJUnitPlatform()
+}

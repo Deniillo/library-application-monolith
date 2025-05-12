@@ -1,0 +1,47 @@
+networks:
+  dev:
+
+services:
+
+  service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env.dev
+    environment:
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
+      UI_SERVICE_URL: ${UI_SERVICE_URL}
+      DATABASE_CONNECTION: ${DATABASE_CONNECTION}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "${UI_SERVICE_PORT}:${UI_SERVICE_PORT}"
+    command: [ "java", "-jar", "library-application-monolith.jar", "--spring.profiles.active=${SPRING_PROFILES_ACTIVE}" ]
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - dev
+
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    env_file: .env.dev
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - dev
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db:

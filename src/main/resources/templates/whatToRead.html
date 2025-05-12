@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекомендации книг</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{https://cdn.tailwindcss.com}"></script>
+    <script th:src="@{/js/tableConstructor.js}"></script>
+    <script th:src="@{/js/pageLoadTime.js}"></script>
+    <script th:src="@{/js/navigation.js}"></script>
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-green-600 text-black p-5 text-center">
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo.png}" width="200" class="mx-auto mb-3">
+        </a>
+        <form class="mb-4">
+            <input type="text" placeholder="Напиши сюда что ты ищешь!" class="border rounded-lg px-4 py-2 w-full sm:w-80 shadow-md">
+            <button type="submit" class="bg-white rounded-lg px-4 py-2 ml-3 shadow-md transition duration-300 hover:bg-gray-200">Тык</button>
+        </form>
+        <nav>
+            <ul id="menu" class="flex flex-wrap space-x-2 justify-center">
+                <li><a th:href="@{/profile}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Профиль</a></li>
+                <li><a th:href="@{/whatToRead}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Что почитать?</a></li>
+                <li><a th:href="@{/authors}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Авторы</a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjFBl4JoRrP2MZbj9xX0wz0JH4YJ3CayQxJilq1GJf3hLvAQ/viewform?usp=dialog" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Стать автором</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto mt-8">
+        <h1 class="text-2xl font-bold mb-4">Рекомендации книг</h1>
+
+        <form id="book-form" class="flex flex-col gap-4">
+            <label for="days" class="block">Выберите количество дней:</label>
+            <select name="days" id="days" class="border px-2 py-1 rounded">
+                <option value="1">1 день</option>
+                <option value="2">2 дня</option>
+                <option value="3">3 дня</option>
+                <option value="4">4 дня</option>
+                <option value="5">5 дней</option>
+                <option value="6">6 дней</option>
+                <option value="7">7 дней</option>
+            </select>
+
+            <label for="genre" class="block">Выберите жанр:</label>
+            <select name="genre" id="genre" class="border px-2 py-1 rounded">
+                <option value="романы">Романы</option>
+                <option value="детективы">Детективы</option>
+                <option value="фантастика">Фантастика</option>
+                <option value="триллеры">Триллеры</option>
+                <option value="научпоп">Научпоп</option>
+            </select>
+
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Получить рекомендации</button>
+        </form>
+
+        <div id="result" class="mt-4"></div>
+
+    </main>
+
+    <aside class="bg-blue-100 p-4 rounded-lg shadow-md w-full text-center mt-5">
+        <p>По словам <cite>Карлоса Руис Сафона</cite>: <q>Книги — это корабли, которые нас переносят из одного города в другой, и из одной жизни в другую.</q></p>
+    </aside>
+
+    <footer class="bg-green-600 text-black text-center p-5">
+        <p>Наши контакты:</p>
+        <p>Тг: <a href="https://t.me/Deniill" class="underline text-black">Аленин Даниил</a></p>
+        <p id="loadTime"></p>
+    </footer>
+
+</body>
+</html>

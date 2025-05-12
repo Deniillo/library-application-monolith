@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сервис для книголюбов и авторов">
+    <link rel="stylesheet" th:href="@{https://unpkg.com/swiper/swiper-bundle.min.css}" />
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <script th:src="@{https://cdn.tailwindcss.com}"></script>
+    <script th:src="@{https://unpkg.com/swiper/swiper-bundle.min.js}"></script>
+    <script th:src="@{/js/swiper.js}"></script>
+    <script th:src="@{/js/pageLoadTime.js}"></script>
+    <script th:src="@{/js/navigation.js}"></script>
+    <title>Главная страница</title>
+</head>
+<body class="bg-gray-100">
+
+<header class="bg-green-600 text-black p-5 text-center">
+    <div class="container mx-auto relative">
+        <!-- Логотип по центру -->
+        <a th:href="@{/}">
+            <img th:src="@{/images/logo.png}" width="200" class="mx-auto mb-3">
+        </a>
+
+        <!-- Блок авторизации в правом углу -->
+        <div class="absolute top-5 right-5">
+            <div th:if="${isAuthenticated}" class="bg-white p-2 rounded-lg shadow-md text-sm">
+                <p class="text-black">Добро пожаловать, <span th:text="${username}">Пользователь</span>!</p>
+                <a th:href="@{/logout}" class="text-green-600 hover:text-green-700">Выйти</a>
+            </div>
+            <div th:unless="${isAuthenticated}" class="bg-white p-2 rounded-lg shadow-md text-sm">
+                <form th:action="@{/login}" method="post" class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <input type="text" name="username" placeholder="Логин" class="border rounded-lg px-2 py-1 w-24">
+                    <input type="password" name="password" placeholder="Пароль" class="border rounded-lg px-2 py-1 w-24">
+                    <button type="submit" class="bg-green-500 text-white rounded-lg px-3 py-1 hover:bg-green-600 text-sm">Войти</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Поисковая строка -->
+        <form class="mb-4">
+            <input type="text" placeholder="Напиши сюда что ты ищешь!" class="border rounded-lg px-4 py-2 w-full sm:w-80 shadow-md">
+            <button type="submit" class="bg-white rounded-lg px-4 py-2 ml-3 shadow-md transition duration-300 hover:bg-gray-200">Тык</button>
+        </form>
+
+        <!-- Навигация -->
+        <nav>
+            <ul id="menu" class="flex flex-wrap space-x-2 justify-center">
+                <li><a th:href="@{/profile}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Профиль</a></li>
+                <li><a th:href="@{/whatToRead}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Что почитать?</a></li>
+                <li><a th:href="@{/authors}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Авторы</a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjFBl4JoRrP2MZbj9xX0wz0JH4YJ3CayQxJilq1GJf3hLvAQ/viewform?usp=dialog" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Стать автором</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="flex flex-col items-center m-5 bg-white p-5 rounded-lg shadow-md">
+    <div class="content w-full">
+
+        <section class="mb-5">
+            <h2 class="text-2xl font-semibold mb-3 text-left">Новости</h2>
+            <div class="swiper-container-news overflow-hidden relative">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="flex-shrink-0 w-full md:w-2/5 lg:w-1/4 flex flex-col items-center p-4 border border-gray-200 bg-white bg-opacity-70 rounded-lg shadow-md min-h-[350px]">
+                            <img th:src="@{/images/news1.jpg}" alt="Новость 1" class="rounded mb-2 max-w-full swiper-image">
+                            <div class="text-center">
+                                <p class="font-semibold text-lg">Книги книги книги!!!</p>
+                                <p class="text-md">Внимание, мы делаем громадную распродажу книг!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="flex-shrink-0 w-full md:w-2/5 lg:w-1/4 flex flex-col items-center p-4 border border-gray-200 bg-white bg-opacity-70 rounded-lg shadow-md min-h-[350px]">
+                            <img th:src="@{/images/news2.jpg}" alt="Новость 2" class="rounded mb-2 max-w-full swiper-image">
+                            <div class="text-center">
+                                <p class="font-semibold text-lg">Призрак в книжном!</p>
+                                <p class="text-md">Срочно у нас завелся книжный призрак! Приходите найти его среди полок!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="flex-shrink-0 w-full md:w-2/5 lg:w-1/4 flex flex-col items-center p-4 border border-gray-200 bg-white bg-opacity-70 rounded-lg shadow-md min-h-[350px]">
+                            <img th:src="@{/images/news3.jpg}" alt="Новость 3" class="rounded mb-2 max-w-full swiper-image">
+                            <div class="text-center">
+                                <p class="font-semibold text-lg">Короновирус не остановит нас от чтения!</p>
+                                <p class="text-md">Внимание, соблюдаем масочный режим в книжных</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination-news mb-4"></div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold mb-3">Новинки книг</h2>
+            <div class="swiper-container-books">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide bg-white p-4 rounded-lg shadow-md flex flex-col items-center relative min-h-[400px]">
+                        <img th:src="@{/images/book1.jpg}" alt="Книга 1" class="rounded mb-2 w-48">
+                        <p class="text-center text-lg">Вас ждет незабываемая история о приключениях и самопознании.</p>
+                    </div>
+                    <div class="swiper-slide bg-white p-4 rounded-lg shadow-md flex flex-col items-center relative min-h-[400px]">
+                        <img th:src="@{/images/book2.jpg}" alt="Книга 2" class="rounded mb-2 w-48">
+                        <p class="text-center text-lg">Вы останетесь довольны этой захватывающей повестью, полной тайн.</p>
+                    </div>
+                    <div class="swiper-slide bg-white p-4 rounded-lg shadow-md flex flex-col items-center relative min-h-[400px]">
+                        <img th:src="@{/images/book3.jpg}" alt="Книга 3" class="rounded mb-2 w-48">
+                        <p class="text-center text-lg">Урааа! Эта книга взорвет ваше воображение и сердце!</p>
+                    </div>
+                    <div class="swiper-slide bg-white p-4 rounded-lg shadow-md flex flex-col items-center relative min-h-[400px]">
+                        <img th:src="@{/images/book4.jpg}" alt="Книга 4" class="rounded mb-2 w-48">
+                        <p class="text-center text-lg">Гооооол! Погружение в удивительный мир литературы.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination-books mb-4"></div>
+        </section>
+    </div>
+</main>
+
+<aside class="bg-blue-100 p-4 rounded-lg shadow-md w-full text-center mt-5">
+    <p>По словам <cite>Карлоса Руис Сафона</cite>: <q>Книги — это корабли, которые нас переносят из одного города в другой, и из одной жизни в другую.</q></p>
+</aside>
+
+<footer class="bg-green-600 text-black text-center p-5">
+    <p>Наши контакты:</p>
+    <p>Тг: <a href="https://t.me/Deniill" class="underline text-black">Аленин Даниил</a></p>
+    <p id="loadTime"></p>
+</footer>
+
+</body>
+</html>

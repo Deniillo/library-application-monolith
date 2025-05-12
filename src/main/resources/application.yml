@@ -1,0 +1,30 @@
+spring:
+    application:
+        name: ui-service
+    thymeleaf:
+        prefix: classpath:/templates/
+        suffix: .html
+    profiles:
+        active: dev
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+    datasource:
+        url: ${DATABASE_CONNECTION}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        driver-class-name: org.postgresql.Driver
+
+logging:
+    level:
+        root: INFO # уровень логирования по умолчанию
+        org.springframework.web: DEBUG # логирование для spring web
+        itmo.denilll: DEBUG # логирование для пакета
+
+# Общие настройки безопасности (если используется Spring Security)
+#spring:
+#    security:
+#        user:
+#            name: admin  # Логин по умолчанию
+#            password: secret  # Пароль по умолчанию
