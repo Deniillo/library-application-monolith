@@ -9,17 +9,22 @@ import java.util.Date;
 @Table(name = "user_profiles")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class UserProfile {
     @Id
     private Long id;
-    private String first_name;
-    private String last_name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id")
+    private User user;
+
+    private String name;
     private String photo_url;
     private String address;
     private String life_status;
     private Date birthday;
-    private Date last_online;
 }

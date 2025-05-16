@@ -1,6 +1,6 @@
 spring:
     application:
-        name: ui-service
+        name: library-application
     thymeleaf:
         prefix: classpath:/templates/
         suffix: .html
@@ -8,23 +8,41 @@ spring:
         active: dev
     jpa:
         hibernate:
-            ddl-auto: update
+            ddl-auto: create
         show-sql: true
     datasource:
         url: ${DATABASE_CONNECTION}
         username: ${DB_USERNAME}
         password: ${DB_PASSWORD}
         driver-class-name: org.postgresql.Driver
+    graphql:
+        graphiql:
+            enabled: true
+    servlet:
+        multipart:
+            enabled: true
+            max-file-size: 40MB
+            max-request-size: 40MB
 
 logging:
     level:
         root: INFO # уровень логирования по умолчанию
-        org.springframework.web: DEBUG # логирование для spring web
         itmo.denilll: DEBUG # логирование для пакета
+        org:
+            hibernate:
+                SQL=DEBUG:
+                type:
+                    descriptor:
+                        sql:
+                            BasicBinder: TRACE
+            springframework:
+                .web: DEBUG
+                .security: DEBUG
 
-# Общие настройки безопасности (если используется Spring Security)
-#spring:
-#    security:
-#        user:
-#            name: admin  # Логин по умолчанию
-#            password: secret  # Пароль по умолчанию
+
+
+okta:
+    oauth2:
+        issuer: https://dev-vnh3o41u2yh2bwyj.us.auth0.com/
+        client-id: l0KjdIqBPB6NJlf2SlYH5rmOgNINRSlH
+        client-secret: V7hpBUqwS7IPqCWYEbyccBWz1ETXdrwXtFZMbm4zU9bx-Tl_N4inOH0Aum9Y1t4J

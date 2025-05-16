@@ -1,8 +1,8 @@
 server:
-    port: 8081
+    port: 8080
 
 my-service:
-    url: http://localhost:8081
+    url: http://localhost:8080
 
 thymeleaf:
     cache: false # отключаем чтобы изменения в шаблонах применялись без перезапуска приложения

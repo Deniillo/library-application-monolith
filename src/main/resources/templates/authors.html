@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,54 @@
         <a th:href="@{/}">
             <img th:src="@{/images/logo.png}" width="200" class="mx-auto mb-3">
         </a>
+
+        <div class="absolute top-5 right-5">
+            <div sec:authorize="isAuthenticated()" class="group relative">
+                <button class="flex items-center space-x-2 bg-white pl-3 pr-2 py-2 rounded-lg shadow-md relative z-50">
+                    <img th:src="${profile.get('picture')}"
+                         alt="Profile"
+                         class="w-8 h-8 rounded-full">
+                    <span class="text-black text-sm" th:text="${profile.get('name')}"></span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 pointer-events-none
+                       group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50
+                       before:content-[''] before:absolute before:-top-2 before:left-0 before:w-full before:h-2">
+                    <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
+                        <i class="fas fa-user mr-2"></i>Профиль
+                    </a>
+
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit"
+                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-800 transition-colors">
+                            <i class="fas fa-power-off mr-2 text-red-600"></i>Выйти
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()">
+                <a th:href="@{/oauth2/authorization/okta}"
+                   class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow-md text-sm
+               flex items-center transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                    </svg>
+                    Войти
+                </a>
+            </div>
+        </div>
+
+
         <form class="mb-4">
             <input type="text" placeholder="Напиши сюда что ты ищешь!" class="border rounded-lg px-4 py-2 w-full sm:w-80 shadow-md">
             <button type="submit" class="bg-white rounded-lg px-4 py-2 ml-3 shadow-md transition duration-300 hover:bg-gray-200">Тык</button>
         </form>
+
         <nav>
             <ul id="menu" class="flex flex-wrap space-x-2 justify-center">
                 <li><a th:href="@{/profile}" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Профиль</a></li>
@@ -27,6 +71,7 @@
                 <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjFBl4JoRrP2MZbj9xX0wz0JH4YJ3CayQxJilq1GJf3hLvAQ/viewform?usp=dialog" class="menu-item bg-white rounded-full px-3 py-2 hover:bg-gray-200 text-black">Стать автором</a></li>
             </ul>
         </nav>
+
     </header>
 
     <main class="max-w-screen-lg mx-auto p-5 mt-8">

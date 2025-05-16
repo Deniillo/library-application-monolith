@@ -1,0 +1,30 @@
+type News {
+    id: ID!
+    headline: String
+    description: String
+    photoUrl: String
+}
+
+input NewsInput {
+    headline: String
+    description: String
+    photoUrl: String
+}
+
+input NewsUpdateInput {
+    id: ID!
+    headline: String
+    description: String
+    photoUrl: String
+}
+
+type Query {
+    getAllNewsGQL: [News]
+    getNewsByIdGQL(id: ID!): News
+}
+
+type Mutation {
+    createNewsGQL(newsInput: NewsInput!): News
+    updateNewsGQL(newsUpdateInput: NewsUpdateInput!): News
+    deleteNewsGQL(id: ID!): Boolean
+}
