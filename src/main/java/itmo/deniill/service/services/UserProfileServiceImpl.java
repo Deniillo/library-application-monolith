@@ -32,4 +32,9 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfile findByUserId(Long userId) {
         return userProfileRepository.findById(userId).orElseThrow(() -> new RuntimeException("user profile is not founded"));
     }
+
+    @Override
+    public void deleteProfile(Long id) {
+        userProfileRepository.deleteById(id);
+    }
 }

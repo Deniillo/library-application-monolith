@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -32,11 +33,14 @@ public class AuthServiceImpl implements AuthService {
             User user = User
                     .builder()
                     .providerId(getProviderId(attributes))
+                    .lastLogin(LocalDate.now())
+                    .username(getNickname(attributes))
                     .email(getEmail(attributes))
                     .build();
             return userService.saveUser(user, userProfile);
         }
-        throw new RuntimeException("I cant register this user " + Arrays.toString(new String[]{getProviderId(attributes)}));
+        return userService.findByProviderId(getProviderId(attributes))
+                .orElseThrow(() -> new RuntimeException("I cant register this user "));
     }
 
     private String getProviderId(Map<String, Object> attributes) {
@@ -45,6 +49,10 @@ public class AuthServiceImpl implements AuthService {
 
     private String getEmail(Map<String, Object> attributes) {
         return (String) attributes.get("email");
+    }
+
+    private String getNickname(Map<String, Object> attributes) {
+        return (String) attributes.get("nickname");
     }
 
     private String getName(Map<String, Object> attributes) {

@@ -69,6 +69,20 @@ public class UserProfileController {
         }
     }
 
+    @DeleteMapping("/{profileId}")
+    @Operation(summary = "Delete user profile by Profile ID",
+            description = "Deletes a user profile by its unique ID",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "Profile deleted successfully"),
+                    @ApiResponse(responseCode = "404", description = "Profile not found")
+            })
+    public ResponseEntity<Void> deleteProfile(
+            @Parameter(description = "ID of the profile to delete", required = true)
+            @PathVariable Long profileId) {
+        userProfileService.deleteProfile(profileId);
+        return ResponseEntity.noContent().build();
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleNotFoundException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

@@ -1,7 +1,10 @@
 package itmo.deniill.dao.model;
 
+import itmo.deniill.dao.model.enums.NewsType;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "news")
@@ -18,4 +21,8 @@ public class News {
     private String description;
     @Column(name = "photo_url")
     private String photoUrl;
+    @Enumerated(EnumType.STRING)
+    private NewsType type;
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
 }

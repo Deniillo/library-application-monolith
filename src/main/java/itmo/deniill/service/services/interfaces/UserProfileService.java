@@ -8,4 +8,5 @@ public interface UserProfileService {
     UserProfile saveProfile(UserProfile profile);
     UserProfile updateProfile(UserProfile profile);
     UserProfile findByUserId(Long userId);
+    void deleteProfile(Long id);
 }

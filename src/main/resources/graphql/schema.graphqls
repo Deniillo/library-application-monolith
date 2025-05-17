@@ -1,14 +1,22 @@
+enum NewsType {
+    GENERAL
+    BOOKS
+}
+
 type News {
     id: ID!
     headline: String
     description: String
     photoUrl: String
+    type: NewsType
+    createdDate: String
 }
 
 input NewsInput {
     headline: String
     description: String
     photoUrl: String
+    type: NewsType
 }
 
 input NewsUpdateInput {
@@ -16,6 +24,7 @@ input NewsUpdateInput {
     headline: String
     description: String
     photoUrl: String
+    type: NewsType
 }
 
 type Query {

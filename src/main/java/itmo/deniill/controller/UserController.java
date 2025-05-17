@@ -96,6 +96,20 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{userId}")
+    @Operation(summary = "Delete user by ID",
+            description = "Deletes a user by their ID",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "User deleted successfully"),
+                    @ApiResponse(responseCode = "404", description = "User not found")
+            })
+    public ResponseEntity<Void> deleteUser(
+            @Parameter(description = "ID of the user to delete", required = true)
+            @PathVariable Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleNotFoundException(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());

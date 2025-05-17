@@ -8,15 +8,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import itmo.deniill.dao.model.News;
 import itmo.deniill.exception.NewsNotFoundException;
+import itmo.deniill.service.dto.graphql.NewsInput;
+import itmo.deniill.service.dto.graphql.NewsUpdateInput;
 import itmo.deniill.service.services.interfaces.NewsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,6 +39,44 @@ public class NewsController {
     @QueryMapping
     public List<News> getAllNewsGQL() {
         return newsService.findAll();
+    }
+
+    @MutationMapping
+    public News createNewsGQL(@Argument("newsInput") NewsInput newsInput) {
+        News news = new News();
+        news.setHeadline(newsInput.getHeadline());
+        news.setDescription(newsInput.getDescription());
+        news.setPhotoUrl(newsInput.getPhotoUrl());
+        news.setType(newsInput.getType());
+        news.setCreatedDate(LocalDateTime.now());
+
+        return newsService.save(news);
+    }
+
+    @MutationMapping
+    public News updateNewsGQL(@Argument("newsUpdateInput") NewsUpdateInput updateInput) {
+        News existingNews = newsService.findById(updateInput.getId());
+
+        if(updateInput.getHeadline() != null) {
+            existingNews.setHeadline(updateInput.getHeadline());
+        }
+        if(updateInput.getDescription() != null) {
+            existingNews.setDescription(updateInput.getDescription());
+        }
+        if(updateInput.getPhotoUrl() != null) {
+            existingNews.setPhotoUrl(updateInput.getPhotoUrl());
+        }
+        if(updateInput.getType() != null) {
+            existingNews.setType(updateInput.getType());
+        }
+
+        return newsService.save(existingNews);
+    }
+
+    @MutationMapping
+    public Boolean deleteNewsGQL(@Argument Integer id) {
+        newsService.delete(id);
+        return true;
     }
 
     @GetMapping

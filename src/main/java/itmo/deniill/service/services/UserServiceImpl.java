@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @Override
     @Transactional()
     public Optional<User> findByProviderId(String providerId) {
         return userRepository.findByProviderId(providerId);
